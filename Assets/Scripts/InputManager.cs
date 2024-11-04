@@ -5,10 +5,13 @@ using System;
 public class InputManager : MonoBehaviour
 {
     [SerializeField]
-    private InputActionReference MovementAction = null;
+    private InputActionReference MovementAction;
 
     [SerializeField]
-    private InputActionReference JumpAction = null;
+    private InputActionReference JumpAction;
+
+    [SerializeField]
+    private InputActionReference RichtClickAction;
 
     public static InputManager Instance { get { return instance; } }
     private static InputManager instance = null;
@@ -24,12 +27,21 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    public void registerOnJump(Action<InputAction.CallbackContext> onJumpAction)
+    public void RegisterOnRightClick(Action<InputAction.CallbackContext> onRightClick)
+    {
+        RichtClickAction.action.performed += onRightClick;
+    }
+    public void UnregisterOnRightClick(Action<InputAction.CallbackContext> onRightClick)
+    {
+        RichtClickAction.action.performed -= onRightClick;
+    }
+
+    public void RegisterOnJump(Action<InputAction.CallbackContext> onJumpAction)
     {
         JumpAction.action.performed += onJumpAction;
     }
 
-    public void unregisterOnJump(Action<InputAction.CallbackContext> onJumpAction)
+    public void UnregisterOnJump(Action<InputAction.CallbackContext> onJumpAction)
     {
         JumpAction.action.performed -= onJumpAction;
     }

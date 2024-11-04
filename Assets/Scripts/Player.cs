@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        InputManager.Instance.registerOnJump(Jump);
+        InputManager.Instance.RegisterOnJump(Jump);
     }
 
     // Update is called once per frame
@@ -30,6 +30,9 @@ public class Player : MonoBehaviour
 
     private void Jump(InputAction.CallbackContext context)
     {
-        physicsBody.AddForce(Vector3.up * JumpPower);
+        if(Physics.Raycast(gameObject.transform.position - new Vector3(0, gameObject.transform.lossyScale.y, 0), Vector3.down, .05f))
+        {
+            physicsBody.AddForce(Vector3.up * JumpPower);
+        }
     }
 }
