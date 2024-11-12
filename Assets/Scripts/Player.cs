@@ -14,10 +14,17 @@ public class Player : MonoBehaviour
     [SerializeField]
     private Rigidbody physicsBody;
 
-
     void Start()
     {
         InputManager.Instance.RegisterOnJump(Jump);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag(("Mob")))
+        {
+            PlayerManager.Instance.DestroyPlayer(gameObject);
+        }
     }
 
     // Update is called once per frame
